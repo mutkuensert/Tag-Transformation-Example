@@ -25,7 +25,11 @@ class TagTransformation(
 
     companion object {
         /**
-         * Removes tags from the text that don't exist in given list
+         * Removes tags from the text that start with the prefix parameter
+         * but don't exist in the given list.
+         * @param prefix Prefix of the tags like @, #, etc.
+         * @param tags List of tags that should be in the text.
+         * All tags in the list should start with the prefix parameter.
          */
         fun removeUnknownTags(
             text: String,
