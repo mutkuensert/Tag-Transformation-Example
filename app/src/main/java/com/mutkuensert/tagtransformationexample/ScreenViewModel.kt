@@ -11,18 +11,42 @@ class ScreenViewModel : ViewModel() {
     private val _message = MutableStateFlow(TextFieldValue(""))
     val message = _message.asStateFlow()
 
-    private val _tags =
-        MutableStateFlow(listOf("@siriusblack", "@harrypotter", "#azkaban", "@ronweasley", "@dobby"))
-    val tags = _tags.asStateFlow()
+    private val _peopleTags =
+        MutableStateFlow(
+            listOf(
+                "@siriusblack",
+                "@harrypotter",
+                "@ronweasley",
+                "@dobby"
+            )
+        )
+    val peopleTags = _peopleTags.asStateFlow()
+
+    private val _hashTags =
+        MutableStateFlow(listOf("#azkaban", "#hogwartz"))
+    val hashTags = _hashTags.asStateFlow()
 
 
     fun onMessageChange(value: TextFieldValue) {
-        _message.value = value.copy(
+        var newValue = value
+
+        newValue = newValue.copy(
             text = TagTransformation.removeUnknownTags(
-                value.text,
-                tags.value
+                text = newValue.text,
+                prefix = '@',
+                tags = peopleTags.value
             )
         )
+
+        newValue = newValue.copy(
+            text = TagTransformation.removeUnknownTags(
+                text = newValue.text,
+                prefix = '#',
+                tags = hashTags.value
+            )
+        )
+
+        _message.value = newValue
     }
 
     fun insertText(text: String) {

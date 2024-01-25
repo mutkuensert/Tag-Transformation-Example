@@ -29,6 +29,7 @@ class TagTransformation(
          */
         fun removeUnknownTags(
             text: String,
+            prefix: Char,
             tags: List<String>
         ): String {
             var newText = text
@@ -48,9 +49,8 @@ class TagTransformation(
                     }
 
                 val word = text.substring(i, lastIndexOfCurrentWord + 1)
-                val isWordTag = tags.any { word.startsWith(it.first()) }
 
-                if (isWordTag && !tags.any { word.startsWith(it) }) {
+                if (word.startsWith(prefix) && !tags.any { word.startsWith(it) }) {
                     newText = newText.removeRange(i..lastIndexOfCurrentWord)
                     break
                 }

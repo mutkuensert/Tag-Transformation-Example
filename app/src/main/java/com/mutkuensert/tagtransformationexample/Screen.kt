@@ -17,13 +17,22 @@ import com.mutkuensert.tagtransformationexample.util.TagTransformation
 @Composable
 fun Screen(viewModel: ScreenViewModel) {
     val message by viewModel.message.collectAsState()
-    val tags by viewModel.tags.collectAsState()
+    val peopleTags by viewModel.peopleTags.collectAsState()
+    val hashTags by viewModel.hashTags.collectAsState()
 
     Column {
         LazyRow {
-            items(tags.size) { index ->
-                TextButton(onClick = { viewModel.insertText(tags[index]) }) {
-                    Text(text = tags[index])
+            items(peopleTags.size) { index ->
+                TextButton(onClick = { viewModel.insertText(peopleTags[index]) }) {
+                    Text(text = peopleTags[index])
+                }
+            }
+        }
+
+        LazyRow {
+            items(hashTags.size) { index ->
+                TextButton(onClick = { viewModel.insertText(hashTags[index]) }) {
+                    Text(text = hashTags[index])
                 }
             }
         }
