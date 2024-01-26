@@ -4,7 +4,7 @@
 
 
 ## About The Project
-This is an example project to manage tag, hashtags in compose text fields. I implemented [VisualTransformation](https://developer.android.com/reference/kotlin/androidx/compose/ui/text/input/VisualTransformation)
+This is an example project to manage tags, hashtags in compose text fields. I implemented [VisualTransformation](https://developer.android.com/reference/kotlin/androidx/compose/ui/text/input/VisualTransformation)
  interface to apply styles to tags and developed a string operation function to remove a tag at once when user tries to edit a tag or write a new tag that doesn't exist in the list.
 
 
