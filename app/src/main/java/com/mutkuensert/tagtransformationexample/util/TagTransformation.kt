@@ -90,8 +90,10 @@ class TagTransformation(
 
             if (style != null) {
                 builder.withStyle(style) {
-                    append("$word ")
+                    append(word)
                 }
+
+                builder.append(" ")
             } else {
                 builder.append("$word ")
             }
