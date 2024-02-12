@@ -41,7 +41,7 @@ class TagTransformation(
             for (i in text.indices) {
                 if (text[i] == ' ') continue
 
-                val lastIndexOfCurrentWord = text
+                val currentWordLastLetterIndex = text
                     .substring(startIndex = i)
                     .indexOf(" ")
                     .run {
@@ -52,10 +52,10 @@ class TagTransformation(
                         }
                     }
 
-                val word = text.substring(i, lastIndexOfCurrentWord + 1)
+                val word = text.substring(i, currentWordLastLetterIndex + 1)
 
                 if (word.startsWith(prefix) && !tags.any { word.startsWith(it) }) {
-                    newText = newText.removeRange(i..lastIndexOfCurrentWord)
+                    newText = newText.removeRange(i..currentWordLastLetterIndex)
                     break
                 }
             }
