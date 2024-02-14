@@ -38,29 +38,36 @@ class TagTransformation(
         ): String {
             var newText = text
 
-            for (i in text.indices) {
-                if (text[i] == ' ') continue
+            for (index in text.indices) {
+                if (text[index] == ' ') continue
 
-                val currentWordLastLetterIndex = text
-                    .substring(startIndex = i)
-                    .indexOf(" ")
-                    .run {
-                        if (this == -1) {
-                            text.lastIndex.coerceAtLeast(0)
-                        } else {
-                            this + i - 1
-                        }
-                    }
+                val currentWordLastLetterIndex = getLastLetterIndexOfCurrentWord(text, index)
 
-                val word = text.substring(i, currentWordLastLetterIndex + 1)
+                val word = text.substring(index, currentWordLastLetterIndex + 1)
 
-                if (word.startsWith(prefix) && !tags.any { word.startsWith(it) }) {
-                    newText = newText.removeRange(i..currentWordLastLetterIndex)
+                if (isNotValidTag(word, prefix, tags)) {
+                    newText = newText.removeRange(index..currentWordLastLetterIndex)
                     break
                 }
             }
 
             return newText
+        }
+
+        private fun getLastLetterIndexOfCurrentWord(text: String, index: Int): Int {
+            return text.substring(startIndex = index)
+                .indexOf(" ")
+                .run {
+                    if (this == -1) {
+                        text.lastIndex.coerceAtLeast(0)
+                    } else {
+                        this + index - 1
+                    }
+                }
+        }
+
+        private fun isNotValidTag(word: String, prefix: Char, tags: List<String>): Boolean {
+            return word.startsWith(prefix) && !tags.any { word.startsWith(it) }
         }
     }
 
